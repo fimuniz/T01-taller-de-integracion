@@ -29,7 +29,7 @@
             </thead>
 
             <tbody>
-              <% @comments.each do |comment| %>
+              <% @comments.each.order("created_at DESC") do |comment| %>
               <% if comment.post_id%>
                 <%last_post = Post.find(comment.post_id) %>
                 <tr>
