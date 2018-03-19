@@ -11,8 +11,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @comments = (Comment.all.select {|comment| comment.post_id == @post.id}).sort_by {|comment| comment.updated_at}.reverse
-
-  end
+end
 
   # GET /posts/new
   def new
