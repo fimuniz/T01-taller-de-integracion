@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<% provide(:title, @post.titulo) %>
+<div class="container">
+  <div class="page-header page-heading">
+    <h1 class="pull-left"><%= @post.titulo %></h1>
+        <div class="clearfix"></div>
+  </div>
+  <p class="lead"><strong><%= @post.bajada%></strong></p>
+    <p class="lead"><%= @post.cuerpo%></p>
+    <p class="lead"><%= @post.created_at.to_date%></p>
+      <table class="table forum table-striped">
+
+
+        <% provide(:title, "Comentarios") %>
+        <div class="container">
+          <div class="page-header page-heading">
+            <h2 class="pull-left"><%= "Comentarios" %></h2>
+                <div class="clearfix"></div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Comentario</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @comments.each do |comment| %>
+              <% if comment.post_id%>
+                <%last_post = Post.find(comment.post_id) %>
+                <tr>
+                  <td><%= comment.nombre %></td>
+                  <td><%= comment.contenido %></td>
+              </tr>
+              <% else %>
+                <td class="hidden-xs hidden-sm">No hay posts</td>
+              <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <tbody>
+        
+
+        </tbody>
+      </table>
+</div>
+
+<% provide(:title, "Agregar Comentario") %>
+<div class="container">
+  <div class="page-header page-heading">
+    <h2 class="pull-left"><%= "Agregar Comentario" %></h2>
+        <div class="clearfix"></div>
+  </div>
+
+
+<%= render 'comments/form', comment: Comment.new(post_id: @post.id) %>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
